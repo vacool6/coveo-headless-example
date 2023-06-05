@@ -14,11 +14,19 @@ export const resultList = buildResultList(headlessEngine);
 
 // Facets
 export const facet1 = buildFacet(headlessEngine, {
-  options: { field: "ec_category" },
+  options: { field: "filetype" },
 });
 
 export const facet2 = buildFacet(headlessEngine, {
-  options: { field: "ec_name" },
+  options: { field: "source" },
+});
+
+export const facet3 = buildFacet(headlessEngine, {
+  options: { field: "author" },
+});
+
+export const facet4 = buildFacet(headlessEngine, {
+  options: { field: "year" },
 });
 
 // Pagination

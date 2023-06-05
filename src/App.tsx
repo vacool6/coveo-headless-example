@@ -11,6 +11,8 @@ import {
   resultList as ResultListController,
   facet1 as FacetController1,
   facet2 as FacetController2,
+  facet3 as FacetController3,
+  facet4 as FacetController4,
   pager as PagerController,
   instantResults as InstaController,
 } from "./controllers/controllers";
@@ -36,8 +38,10 @@ function App() {
       <div className="app-body">
         <div className="main-section">
           <div className="facet-section column">
-            <Facet controller={FacetController1} title="Category" />
-            <Facet controller={FacetController2} title="Names" />
+            <Facet controller={FacetController1} title="File type" />
+            <Facet controller={FacetController2} title="Sources" />
+            <Facet controller={FacetController3} title="Author" />
+            <Facet controller={FacetController4} title="Month" />
           </div>
           <div className="results-section column">
             <ResultList controller={ResultListController} />
