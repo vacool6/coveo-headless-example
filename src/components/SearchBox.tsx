@@ -3,6 +3,7 @@ import {
   InstantResults as InstantResultsController,
 } from "@coveo/headless";
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface SearchBoxProps {
   controllerSearchbox: SearchBoxController;
@@ -11,12 +12,33 @@ interface SearchBoxProps {
 
 export const SearchBox: React.FC<SearchBoxProps> = (props) => {
   const { controllerSearchbox, controllerInstantResults } = props;
+  //
+  const [search, setSearch] = useState("");
+  const redirect = useNavigate();
+  const params = useParams();
+  //
   const [searchboxState, setStateSearchbox] = useState(
     controllerSearchbox.state
   );
   const [instantResultsState, setStateInstantResults] = useState(
     controllerInstantResults.state
   );
+
+  const handleChange = (event: any) => {
+    controllerSearchbox.updateText(event.target.value);
+    setSearch(`/${event.target.value}`);
+  };
+
+  const handleSearch = () => {
+    controllerSearchbox.submit();
+    redirect(`${search}`);
+  };
+
+  const handleClear = () => {
+    controllerSearchbox.clear();
+    controllerSearchbox.submit();
+    redirect(`/`);
+  };
 
   useEffect(
     () =>
@@ -33,15 +55,22 @@ export const SearchBox: React.FC<SearchBoxProps> = (props) => {
     [controllerInstantResults]
   );
 
+  useEffect(() => {
+    if (params.query) {
+      controllerSearchbox.updateText(params.query);
+      controllerSearchbox.submit();
+    }
+  }, [controllerSearchbox, params.query]);
+
   return (
     <>
-      <button onClick={() => controllerSearchbox.submit()}>Search</button>
-      <button onClick={() => controllerSearchbox.clear()}>Clear</button>
+      <button onClick={handleSearch}>Search</button>
+      <button onClick={handleClear}>Clear</button>
 
       <div className="search-box">
         <input
           value={searchboxState.value}
-          onChange={(e) => controllerSearchbox.updateText(e.target.value)}
+          onChange={(e) => handleChange(e)}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               controllerSearchbox.submit();
