@@ -5,13 +5,19 @@ interface ResultListProps {
   controller: ResultListController;
 }
 
-const sportsResultsTemplate = (result: Result) => {
+const sportsResultsTemplate = (result: Result, srcType: any) => {
   return (
     <li key={result.uniqueId}>
       <div>
         <div className="result-item-header">
-          <h2>{result.title}</h2>
-          <button className="result-button">Add to cart</button>
+          <h2>
+            <a href={result.title}>{result.title}</a>
+          </h2>
+          {srcType === "Sports" ? (
+            <button className="result-button">Add to cart</button>
+          ) : (
+            <button className="result-button">More info</button>
+          )}
         </div>
         <p>{result.excerpt}</p>
       </div>
@@ -27,6 +33,7 @@ const ResultList: React.FC<ResultListProps> = (props) => {
   const { controller } = props;
   const [state, setState] = useState(controller.state);
 
+  console.log(state);
   useEffect(
     () => controller.subscribe(() => setState(controller.state)),
     [controller]
@@ -40,9 +47,9 @@ const ResultList: React.FC<ResultListProps> = (props) => {
       <ul>
         {state.results.map((result) => {
           if (result.raw.source === "Sports") {
-            return sportsResultsTemplate(result);
+            return sportsResultsTemplate(result, result.raw.source);
           } else {
-            return defaultResultsTemplate(result);
+            return sportsResultsTemplate(result, result.raw.source);
           }
         })}
       </ul>
