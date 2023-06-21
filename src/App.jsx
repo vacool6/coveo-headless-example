@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
 
 //
 import ResultList from "./components/ResultList";
@@ -33,92 +32,41 @@ function App() {
   }, []);
 
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <>
-            <div className="app">
-              <header className="app-header">
-                <img
-                  src={require("./assets/barca.svg").default}
-                  alt="barcaLogo"
-                />
-                <div className="search-section">
-                  <SearchBox
-                    controllerSearchbox={SearchBoxController}
-                    controllerInstantResults={InstaController}
-                  />
-                </div>
-              </header>
-              <div className="app-body">
-                <div className="main-section">
-                  <div className="facet-section column">
-                    <FacetSearch
-                      controller={facetBuilder("source", "1")}
-                      facetTitle="Source"
-                    />
-                    <Facet controller={FacetController1} title="File type" />
-                    <Facet controller={FacetController3} title="Author" />
-                    <CategoryFacet controller={categorySearchController} />
-                    <DateFilter controller={dateFacetController} />
-                  </div>
-                  <div className="results-section column">
-                    <BreadCrumb controller={BreadCrumbController} />
-                    <ResultList
-                      // dataField="Uri"
-                      dataField="ClickUri"
-                      controller={ResultListController}
-                    />
-                    <Pager controller={PagerController} />
-                  </div>
-                </div>
-              </div>
+    <>
+      <div className="app">
+        <header className="app-header">
+          <img src={require("./assets/barca.svg").default} alt="barcaLogo" />
+          <div className="search-section">
+            <SearchBox
+              controllerSearchbox={SearchBoxController}
+              controllerInstantResults={InstaController}
+            />
+          </div>
+        </header>
+        <div className="app-body">
+          <div className="main-section">
+            <div className="facet-section column">
+              <FacetSearch
+                controller={facetBuilder("source", "1")}
+                facetTitle="Source"
+              />
+              <Facet controller={FacetController1} title="File type" />
+              <Facet controller={FacetController3} title="Author" />
+              <CategoryFacet controller={categorySearchController} />
+              <DateFilter controller={dateFacetController} />
             </div>
-          </>
-        }
-      />
-
-      <Route
-        path="/:query"
-        element={
-          <>
-            <div className="app">
-              <header className="app-header">
-                <img
-                  src={require("./assets/barca.svg").default}
-                  alt="barcaLogo"
-                />
-                <div className="search-section">
-                  <SearchBox
-                    controllerSearchbox={SearchBoxController}
-                    controllerInstantResults={InstaController}
-                  />
-                </div>
-              </header>
-              <div className="app-body">
-                <div className="main-section">
-                  <div className="facet-section column">
-                    <FacetSearch
-                      controller={facetBuilder("source", "1")}
-                      facetTitle="Source"
-                    />
-                    <Facet controller={FacetController1} title="File type" />
-                    <Facet controller={FacetController3} title="Author" />
-                    <DateFilter controller={dateFacetController} />
-                  </div>
-                  <div className="results-section column">
-                    <BreadCrumb controller={BreadCrumbController} />
-                    <ResultList controller={ResultListController} />
-                    <Pager controller={PagerController} />
-                  </div>
-                </div>
-              </div>
+            <div className="results-section column">
+              <BreadCrumb controller={BreadCrumbController} />
+              <ResultList
+                dataField="ClickUri"
+                controller={ResultListController}
+              />
+              <Pager controller={PagerController} />
             </div>
-          </>
-        }
-      />
-    </Routes>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 

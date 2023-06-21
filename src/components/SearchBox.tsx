@@ -3,7 +3,6 @@ import {
   InstantResults as InstantResultsController,
 } from "@coveo/headless";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 
 interface SearchBoxProps {
   controllerSearchbox: SearchBoxController;
@@ -14,8 +13,7 @@ export const SearchBox: React.FC<SearchBoxProps> = (props) => {
   const { controllerSearchbox, controllerInstantResults } = props;
   //
   const [search, setSearch] = useState("");
-  const redirect = useNavigate();
-  const params = useParams();
+
   //
   const [searchboxState, setStateSearchbox] = useState(
     controllerSearchbox.state
@@ -31,13 +29,13 @@ export const SearchBox: React.FC<SearchBoxProps> = (props) => {
 
   const handleSearch = () => {
     controllerSearchbox.submit();
-    redirect(`${search}`);
+    // redirect(`${search}`);
   };
 
   const handleClear = () => {
     controllerSearchbox.clear();
     controllerSearchbox.submit();
-    redirect(`/`);
+    // redirect(`/`);
   };
 
   useEffect(
@@ -55,12 +53,12 @@ export const SearchBox: React.FC<SearchBoxProps> = (props) => {
     [controllerInstantResults]
   );
 
-  useEffect(() => {
-    if (params.query) {
-      controllerSearchbox.updateText(params.query);
-      controllerSearchbox.submit();
-    }
-  }, [controllerSearchbox, params.query]);
+  // useEffect(() => {
+  //   if (params.query) {
+  //     controllerSearchbox.updateText(params.query);
+  //     controllerSearchbox.submit();
+  //   }
+  // }, [controllerSearchbox, params.query]);
 
   return (
     <>
