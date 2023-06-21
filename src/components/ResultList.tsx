@@ -2,16 +2,21 @@ import { useState, useEffect } from "react";
 import { ResultList as ResultListController, Result } from "@coveo/headless";
 
 interface ResultListProps {
+  dataField: String;
   controller: ResultListController;
 }
 
-const sportsResultsTemplate = (result: Result, srcType: any) => {
+const sportsResultsTemplate = (result: any, srcType: any, dataField: any) => {
+  console.log(result);
   return (
     <li key={result.uniqueId}>
       <div>
         <div className="result-item-header">
           <h2>
-            <a href={result.title}>{result.title}</a>
+            {/* <a href={dataField} target="_blank" rel="noreferrer"> */}
+            <a href={result[dataField]} target="_blank" rel="noreferrer">
+              {result.title}
+            </a>
           </h2>
           {srcType === "Sports" ? (
             <button className="result-button">Add to cart</button>
@@ -30,10 +35,9 @@ const defaultResultsTemplate = (result: Result) => {
 };
 
 const ResultList: React.FC<ResultListProps> = (props) => {
-  const { controller } = props;
+  const { controller, dataField } = props;
   const [state, setState] = useState(controller.state);
 
-  console.log(state);
   useEffect(
     () => controller.subscribe(() => setState(controller.state)),
     [controller]
@@ -47,9 +51,9 @@ const ResultList: React.FC<ResultListProps> = (props) => {
       <ul>
         {state.results.map((result) => {
           if (result.raw.source === "Sports") {
-            return sportsResultsTemplate(result, result.raw.source);
+            return sportsResultsTemplate(result, result.raw.source, dataField);
           } else {
-            return sportsResultsTemplate(result, result.raw.source);
+            return sportsResultsTemplate(result, result.raw.source, dataField);
           }
         })}
       </ul>

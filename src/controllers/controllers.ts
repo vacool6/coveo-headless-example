@@ -7,6 +7,8 @@ import {
   buildInstantResults,
   buildBreadcrumbManager,
   buildDateFilter,
+  buildCategoryFacet,
+  CategoryFacetOptions,
 } from "@coveo/headless";
 import { headlessEngine } from "../Engine";
 
@@ -46,13 +48,16 @@ export const instantResults = buildInstantResults(headlessEngine, {
   options: { maxResultsPerQuery: 1 },
 });
 
-// breadcrumbs controller
-export const breadcrumbs = buildBreadcrumbManager(headlessEngine);
-
-//
-
+// date-time facet
 export const dateFacet = buildDateFilter(headlessEngine, {
   options: {
     field: "date",
   },
 });
+
+// breadcrumbs controller
+export const breadcrumbs = buildBreadcrumbManager(headlessEngine);
+
+// category search facet
+const options: CategoryFacetOptions = { field: "author" };
+export const categoryFacet = buildCategoryFacet(headlessEngine, { options });

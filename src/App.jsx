@@ -10,6 +10,7 @@ import Pager from "./components/Pager";
 import BreadCrumb from "./components/BreadCrumb";
 import DateFilter from "./components/TimeFacet";
 import { FacetSearch } from "./components/FacetSearch";
+import { CategoryFacet } from "./components/CategoryFacet";
 //
 import {
   searchBox as SearchBoxController,
@@ -21,6 +22,7 @@ import {
   breadcrumbs as BreadCrumbController,
   facetBuilder,
   dateFacet as dateFacetController,
+  categoryFacet as categorySearchController,
 } from "./controllers/controllers";
 //
 import { headlessEngine } from "./Engine";
@@ -58,11 +60,16 @@ function App() {
                     />
                     <Facet controller={FacetController1} title="File type" />
                     <Facet controller={FacetController3} title="Author" />
+                    <CategoryFacet controller={categorySearchController} />
                     <DateFilter controller={dateFacetController} />
                   </div>
                   <div className="results-section column">
                     <BreadCrumb controller={BreadCrumbController} />
-                    <ResultList controller={ResultListController} />
+                    <ResultList
+                      // dataField="Uri"
+                      dataField="ClickUri"
+                      controller={ResultListController}
+                    />
                     <Pager controller={PagerController} />
                   </div>
                 </div>
