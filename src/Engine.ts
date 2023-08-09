@@ -15,10 +15,10 @@ const registerAdditionalFields = (headlessEngine: SearchEngine) => {
 
 const buildEngine = buildSearchEngine({
   configuration: {
-    organizationId: "sameerkitalentdigitalcomchocolateladybugyn9b4y2h",
-    accessToken: "xxa044ab89-9098-4f90-84cf-c640136d0d2d",
+    organizationId: `${process.env.REACT_APP_ORG_ID}`,
+    accessToken: `${process.env.REACT_APP_ACCESS_TOKEN}`,
     organizationEndpoints: getOrganizationEndpoints(
-      "sameerkitalentdigitalcomchocolateladybugyn9b4y2h"
+      `${process.env.REACT_APP_ORG_ID}`
     ),
     // search: {
     //   pipeline: "kids",
